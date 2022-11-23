@@ -7,7 +7,7 @@ date: 2022-11-23
 
 At the 2022 FIFA World Cup in Qatar, each team has a squad of 26 players, but only 11 can be selected in the starting lineup. 
 
-![Player chem](/assets/Player%20chemistry.png)
+![Player chem](/my-first-blog/Player%20chemistry.png)
 
 ```matlab
 this is code
