@@ -1,5 +1,5 @@
 ---
-title: "Finding the Best Starting Eleven using Simulated Annealing"
+title: "Finding the Best Starting XI using Simulated Annealing"
 date: 2022-11-23
 ---
 
