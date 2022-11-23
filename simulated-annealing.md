@@ -6,7 +6,11 @@ usemath: true
 
 # A complete graph for a complete squad
 
-At the 2022 FIFA World Cup in Qatar, each team has a squad of 26 players, but only 11 can be selected in the starting lineup. This means there are ```math \binom{26}{11} = 7726160``` different combinations for the manager to choose from! National team managers are typically very busy people and don't have the time to check each possibility, prompting them to seek the help of a mathematician. 
+At the 2022 FIFA World Cup in Qatar, each team has a squad of 26 players, but only 11 can be selected in the starting lineup. This means there are 
+```math 
+\binom{26}{11} = 7726160
+```
+different combinations for the manager to choose from! National team managers are typically very busy people and don't have the time to check each possibility, prompting them to seek the help of a mathematician. 
 
 To assist us, the coach provides a crucial piece of information: a 'score' of how well each pair of footballers play together. For example, if two players go well in the same team, the score between them would be low. On the other hand, if the two make a horrid combination, like what could happen if they play in the same position, then their score would be very high. Typically, good players would have low scores with all their teammates, while fringe players would have high scores. 
 
