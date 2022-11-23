@@ -1,4 +1,3 @@
-usemath: true
 ---
 title: "Finding the Best Starting Eleven using Simulated Annealing"
 date: 2022-11-23
