@@ -2,7 +2,7 @@ theme: minima
 title: Peter's Maths Blog
 author: Peter Moskvichev
 description: My first attempt to write a blog on my GitHub website
-markdown: GFM
+markdown: kramdown
 kramdown:
   input: Kramdown
 math_engine: mathjax
