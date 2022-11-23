@@ -5,3 +5,4 @@ description: My first attempt to write a blog on my GitHub website
 markdown: kramdown
 kramdown:
   input: GFM
+math_engine: mathjax
