@@ -4,5 +4,5 @@ author: Peter Moskvichev
 description: My first attempt to write a blog on my GitHub website
 markdown: kramdown
 kramdown:
-  input: GFM
+  input: Kramdown
 math_engine: mathjax
