@@ -1,5 +1,5 @@
 ---
-title: Finding the Best Starting Eleven using Simulated Annealing
+title: Peter's Maths Blog
 ---
 
 Welcome to my first blog!
