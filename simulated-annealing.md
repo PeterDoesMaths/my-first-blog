@@ -9,6 +9,8 @@ At the 2022 FIFA World Cup in Qatar, each team has a squad of 26 players, but on
 
 ![Player chemistry](/assets/PlayerChem.png)
 
+<a href="assests/Socceroos%20Graph.xlsx">Download the Excel file</a>
+
 ```matlab
 this is code
 ```
