@@ -10,4 +10,6 @@ There isn't too much going on here at the moment but go check out my first blog 
 
 To test out my maths markdown, here is a fun definition Euler's number,
 
-$e = \lim_{n \to \infty}\left(1+\frac{1}{n}\right)^n = \sum_{n=0}^\infty \frac{1}{n!}$
+$$
+e = \lim_{n \to \infty}\left(1+\frac{1}{n}\right)^n = \sum_{n=0}^\infty \frac{1}{n!}
+$$
