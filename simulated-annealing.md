@@ -36,22 +36,28 @@ Using this exhaustive search we see that the three player combination with the l
 
 # The Simulated Annealing optimisation algorithm
 
-In mathematical terms, we are dealing with a non-convex optimisation problem with a discrete search space. Luckily, there exists a search method called *simulated annealing* which suits our problem particularly well. Essentially, we iterate in a special way over the search space in attempt to find the global minimiser. Here's a breif outline of how it works
+In mathematical terms, we are dealing with a non-convex optimisation problem with a discrete search space. Luckily, there exists a search method called *simulated annealing* which suits our problem particularly well. Essentially, we iterate in a special way over the search space in an attempt to find the global minimiser. Here's a breif outline of how it works
 
 1. Begin with some guess of the solution
-2. Choose a 'neighbouring' solution
-3. If the cost decreases, we keep the new solution
-4. If the cost increases, we may or 
-    - kjd
+2. Choose a 'neighbouring' solution and determine the change in cost $\Delta f$
+3. If $\Delta f \leq 0$, we keep the new solution
+4. If $\Delta f > 0$, we may or may not keep the solution, based on the probability of acceptance.
+    - The probability of acceptance decreases as $\Delta f$ increases, and
+    - The probability of acceptance decreases as the 'temperature' $T$ decreases
+5. Repeat the process for as long as you have time for or until the global minimum is reached. 
 
-$$ 
-W = \left( \begin{array}{ccccc} 0 & 1 & 2 & 1 & 1 \\
-1 & 0 & 3 & 1 & 2 \\
-2 & 3 & 0 & 1 & 2 \\
-1 & 1 & 1 & 0 & 3 \\
-1 & 2 & 2 & 3 & 0 \end{array} \right)
-$$
 
+There are a number of things to unpack here. First of all, in this problem we will define two solutions as neighbouring if they differ by only one vertex. In the previous example, we would say 1 2 3 and 1 2 4 are neighbouring. This ensures our step sizes are not too large. 
+
+Many different acceptance functions can be used for simmulated annealing, but the one we will go for is 
+$ 
+P(accept | \Delta f) = \exp(\frac{-\Delta f}{T}).
+$
+
+Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. 
+
+
+<img src="assets/WeightMatrix.png" width="300">
 
 
 # Example
