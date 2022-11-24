@@ -8,4 +8,4 @@ Hi! I'm Peter, a mathematics student at the University of Adelaide. I go on a lo
 
 There isn't too much going on here at the moment but go check out my first blog post. If you enjoy a mixture of graph theory, optimisation and football, then it's definitely worth having a look.
 
-$$e = \lim_{n \to \infty}\left(1+\frac{1}{n}\right)^n = \sum_{n=0}^\infty \frac{1}{n!}
+$$e = \lim_{n \to \infty}\left(1+\frac{1}{n}\right)^n = \sum_{n=0}^\infty \frac{1}{n!}$$
