@@ -1,7 +1,6 @@
 ---
+layout: home
 title: Peter's Maths Blog
-mathjax: true
-katex: true
 ---
 
 Hi! I'm Peter, a mathematics student at the University of Adelaide. I go on a lot of maths adventures, and I will be using this website as a platform to share some of the highlights. 
