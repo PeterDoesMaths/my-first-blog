@@ -36,14 +36,17 @@ Using this exhaustive search we see that the three player combination with the l
 
 # The Simulated Annealing optimisation algorithm
 
-In mathematical terms, we are dealing with a non-convex optimisation problem with a discrete search space. Luckily, there exists a search method called *simulated annealing* which suits our problem particularly well. 
+In mathematical terms, we are dealing with a non-convex optimisation problem with a discrete search space. Luckily, there exists a search method called *simulated annealing* which suits our problem particularly well. Essentially, we iterate in a special way over the search space in attempt to find the global minimiser. Here's a breif outline of how it works
 
-$ W = \left[ \begin{array}{ccccc} 0 & 1 & 2 & 1 & 1 \\
+1.  Begin with some guess of the solution $x$
+2. Choose a 'neighbouring' solution
+
+$$ W = \left[ \begin{array}{ccccc} 0 & 1 & 2 & 1 & 1 \\
 1 & 0 & 3 & 1 & 2 \\
 2 & 3 & 0 & 1 & 2 \\
 1 & 1 & 1 & 0 & 3 \\
 1 & 2 & 2 & 3 & 0 \end{array} \right]
-$
+$$
 
 
 
