@@ -15,8 +15,6 @@ We begin with a simpler scenario to better understand the problem. Consider a sq
 
 <img src="assets/5PlayerGraph.png" width="400">
 
-![5 Player Graph](/assets/5PlayerGraph.png)
-
 Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three verticies and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 1, 2 and 3, then the cost of the team would be 1 + 2 + 3 = 6. The task is to find a team of three players which minimise the cost. 
 
 As we do not have too many players, we can just list all possible combinations and find their cost. 
@@ -34,6 +32,7 @@ As we do not have too many players, we can just list all possible combinations a
 | 2 4 5     | 6 |
 | 3 4 5     | 6 |
 
+Using this exhaustive search we see that the three player combination with the lowest score is 1 2 4. 
 
 
 ![Player pair scores](/assets/PlayerChem.png)
