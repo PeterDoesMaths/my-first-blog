@@ -15,7 +15,7 @@ We begin with a simpler scenario to better understand the problem. Consider a sq
 
 <img src="assets/5PlayerGraph.png" width="400">
 
-Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three verticies and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 1, 2 and 3, then the cost of the team would be 1 + 2 + 3 = 6. 
+Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three verticies and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 3, 4 and 5, then the cost of the team would be 1 + 2 + 3 = 6. 
 
 More formally, we can represent the weight between players with the symmetric matrix
 
@@ -57,13 +57,13 @@ In mathematical terms, we are dealing with a non-convex optimisation problem wit
 
 There are a number of things to unpack here. First of all, in this problem we will define two solutions as neighbouring if they differ by only one vertex. In the previous example, we would say (1,2,3) and (1,2,4) are neighbouring. This ensures our step sizes are not too large. 
 
-The probability of acceptance is based on an acceptance function. Many different acceptance functions can be used for simmulated annealing, but the one that satisfies the requirements is
+The probability of acceptance is based on an acceptance function. Many different acceptance functions can be used for simmulated annealing, but one that satisfies the requirements is
 
 $ P(accept \vert \Delta f) = \exp(\frac{-\Delta f}{T}).$
 
 In practice, whether or not a step is accepted is determined by generating a random number between 0 and 1, and comparing it with $P(accept \vert \Delta f)$. If $P(accept \vert \Delta f)$ is greater than the random number, we accept the new $x$, otherwise, we keep the previous $x$. 
 
-Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, which makes $P(accept \vert \Delta f)$ high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. 
+Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, which makes $P(accept \vert \Delta f)$ high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. Just as with the acceptance function, there are many options for decreasing the temperature. For example, $T_k = T_0(1 - \frac{k}{k_{max}})$ where $T_k$ is the temperature at the $k$-th step, $T_0$ is the initial temperature, and $k_{max}$ is the maximum number of steps that will be taken in the search. 
 
 Here is how a simulated annealing search may look for our previous example, starting with the initial guess $x = (2,3,5)$. 
 
@@ -91,13 +91,92 @@ In the spreadsheet, all 26 players of the Australian squad are listed along with
 
 A few things may stand out. Clearly, it would not be a good idea to have two goalkeepers in the starting lineup, so the score between them is very high at 100. In all other cases, the score between players is an integer between 1 and 10. 
 
-
 The optimisation problem is to choose an $x$, where the elements of $x$ are eleven unique integers between 1 and 26, that minimises the cost function
 
 $ f(x) = \frac{1}{2}\sum_{i=1}^{11} \sum_{j=1}^{11} W_{x_i, x_j}.$
 
-
+The simulated annealing algorithm can be implemented in Matlab. Follow along if you want. After downloading the Excel file, we read it in and define the cost function.
 
 ```matlab
-this is code
+Weight = readmatrix('SocceroosGraph.xlsx','Sheet','Sheet1','Range','D4:AC29');
+Cost = @(x) 0.5*sum(Weight(x,x),'all');
 ```
+Next we perform an exhuastive search (this takes about 10 seconds to run).
+
+```matlab
+%% Exhaustive search
+
+% Create possible combinations of starting players
+players = 1:26;
+combos = nchoosek(players,11);
+
+costCombo = nan(size(combos,1),1);
+for k = 1:size(combos,1)
+    costCombo(k) = Cost(combos(k,:));
+end
+[lowestCost, i] = min(costCombo);
+% Lowest cost XI
+bestEleven = combos(i,:)
+```
+After checking the more than 7 million options, we get the output for minimiser $x$
+```matlab
+bestEleven =
+
+     1     3     4     7     8    10    11    13    15    16    22
+```
+Finally, we can compare with the simulated annealing search.
+```matlab
+%% Simulated Annealing Search
+
+x = 1:11;
+xBest = x;
+T0 = 10;
+kmax = 1000;
+for k = 1:kmax
+    % Set Temperature
+    T = T0*(1-k/kmax);
+    %T = 0.8*T; % Alternative temperature decrease
+    % Choose neighbour
+    subs = setdiff(players,x);
+    subOut = randi(length(x),1);
+    subIn = randi(length(subs),1);
+    xNew = x;
+    xNew(subOut) = subs(subIn);
+    % Find change in cost
+    deltaf = sum(Weight(xNew(subOut),xNew)) - sum(Weight(x(subOut),x));
+    % Check acceptance
+    if min(1,exp(-deltaf/T)) >= rand
+        x = xNew;
+    end
+    if Cost(x) < Cost(xBest)
+        xBest = x;
+    end
+end
+xBest
+```
+Running the code (which takes a fraction of a second) gives the ouput
+```matlab
+xBest =
+
+     1    11    15     3    22     7     8    16    13    10     4
+```
+
+Although the order is jumbled up, the simulated annealing search has given exactly the same eleven players as the exhaustive search. And it only needed to check 1000 of the possible combinations! 
+
+It is important to note that since the simulated annealing search uses randomness in the iterations, it is not guaranteed to converge to the global minimum. However, with enough iterations it will always give a good estimate of the minimiser of $f(x)$. 
+
+I will finish this blog by summarising the eleven players which (according the maths and my estimations) will give Australia the best chance of winning the World Cup. Good luck lads!
+
+| Number | Position | Name |
+| -----------: | ----: | --- |
+| 1   | GK | M Ryan |
+| 3   | DF | N Atkinson |
+| 4   | DF | K Rowles |
+| 7   | FW | M Leckie |
+| 8   | DF | B Wright |
+| 10  | MF | A Hrustic |
+| 11  | FW | A Mabil |
+| 13  | MF | A Mooy |
+| 15  | FW | M Duke |
+| 16  | DF | A Behich |
+| 22  | MF | J Irvine |
