@@ -1,8 +1,11 @@
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
+    CommonHTML: {
+      scale: 85
+    },
     TeX: {
       equationNumbers: {
-	autoNumber: "AMS"
+        autoNumber: "AMS"
       }
     },
     tex2jax: {
@@ -18,6 +21,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 	  alert("Math Processing Error: "+message[1]);
 	});
 </script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
