@@ -2,6 +2,7 @@
 title: "Finding the Best Starting Eleven using Simulated Annealing"
 date: 2022-11-23
 use_math: true
+mathjax: true
 ---
 
 # A complete graph for a complete squad
