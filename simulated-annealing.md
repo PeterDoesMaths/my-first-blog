@@ -15,11 +15,19 @@ We begin with a simpler scenario to better understand the problem. Consider a sq
 
 <img src="assets/5PlayerGraph.png" width="400">
 
-Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three verticies and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 1, 2 and 3, then the cost of the team would be 1 + 2 + 3 = 6. The task is to find a team of three players which minimise the cost. 
+Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three verticies and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 1, 2 and 3, then the cost of the team would be 1 + 2 + 3 = 6. 
 
-As we do not have too many players, we can just list all possible combinations and find their cost. 
+More formally, we can represent the weight between players with the symmetric matrix
 
-| Combination | Cost |
+<img src="assets/WeightMatrix.png" width="300">
+
+where the entry $W_{ij}$ is equal to the score between players $i$ and $j$. Then, for a team of players $x = (x_1,x_2,x_3)$, where each $x_i$ is a unique number in the set $\{1,2,3,4,5\}$, the cost is defined by
+
+$ f(x) = \frac{1}{2}\sum_{i=1}^3 \sum_{j=1}^3 W_{x_i, x_j}.$
+
+The task is to find a team of three players $x$ which minimise the cost $f(x)$. As we do not have too many players, we can just list all possible combinations and find their cost. 
+
+| Combination: $x$ | Cost: $f(x)$ |
 | -----------: | ----: |
 | 1 2 3     | 6 |
 | 1 2 4     | 3 |
@@ -57,7 +65,7 @@ $
 Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. 
 
 
-<img src="assets/WeightMatrix.png" width="300">
+
 
 
 # Example
