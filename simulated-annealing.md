@@ -57,15 +57,15 @@ In mathematical terms, we are dealing with a non-convex optimisation problem wit
 
 There are a number of things to unpack here. First of all, in this problem we will define two solutions as neighbouring if they differ by only one vertex. In the previous example, we would say (1,2,3) and (1,2,4) are neighbouring. This ensures our step sizes are not too large. 
 
-The probability of acceptance is based on an acceptance function. Many different acceptance functions can be used for simmulated annealing, but the one we will go for is 
+The probability of acceptance is based on an acceptance function. Many different acceptance functions can be used for simmulated annealing, but the one that satisfies the requirements is
 
-$ P(accept | \Delta f) = \exp(\frac{-\Delta f}{T}).$
+$ P(accept \vert \Delta f) = \exp(\frac{-\Delta f}{T}).$
 
-In practice, whether or not a step is accepted is determined by generating a random number between 0 and 1, and comparing it with $P(accept | \Delta f)$. If $P(accept | \Delta f)$ is greater than the random number, we accept the new $x$, otherwise, we keep the previous $x$. 
+In practice, whether or not a step is accepted is determined by generating a random number between 0 and 1, and comparing it with $P(accept \vert \Delta f)$. If $P(accept \vert \Delta f)$ is greater than the random number, we accept the new $x$, otherwise, we keep the previous $x$. 
 
-Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, which makes $P(accept | \Delta f)$ high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. 
+Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, which makes $P(accept \vert \Delta f)$ high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. 
 
-Here is how a simulated annealing search may look for out previous example, starting with the initial guess $x = (2,3,5)$. 
+Here is how a simulated annealing search may look for our previous example, starting with the initial guess $x = (2,3,5)$. 
 
 | $x$ | $\Delta f$ | Notes |
 | -----------: | ----: | --- | 
@@ -74,6 +74,7 @@ Here is how a simulated annealing search may look for out previous example, star
 | (1,4,5)    | 1  | The cost has increased, but we are early in the search and the temperature is high so we may still accept the new solution |
 | (1,3,5) | 1 | The cost again increases and this time we might reject the new solution and stick with (1,4,5)|
 |(1,2,4) | - 2 | The cost decreases and we have reached the global minimum |
+
 
 
 # Simulated Annealing for Arnold's Socceroos
