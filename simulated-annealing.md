@@ -41,12 +41,12 @@ In mathematical terms, we are dealing with a non-convex optimisation problem wit
 1.  Begin with some guess of the solution $x$
 2. Choose a 'neighbouring' solution
 
-$$ W = \left[ \begin{array}{ccccc} 0 & 1 & 2 & 1 & 1 \\
+$ W = \left[ \begin{array}{ccccc} 0 & 1 & 2 & 1 & 1 \\
 1 & 0 & 3 & 1 & 2 \\
 2 & 3 & 0 & 1 & 2 \\
 1 & 1 & 1 & 0 & 3 \\
 1 & 2 & 2 & 3 & 0 \end{array} \right]
-$$
+$
 
 
 
