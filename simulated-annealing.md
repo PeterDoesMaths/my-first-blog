@@ -21,26 +21,26 @@ More formally, we can represent the weight between players with the symmetric ma
 
 <img src="assets/WeightMatrix.png" width="300">
 
-where the entry $W_{ij}$ is equal to the score between players $i$ and $j$. Then, for a team of players $x = (x_1,x_2,x_3)$, where each $x_i$ is a unique number in the set $\{1,2,3,4,5\}$, the cost is defined by
+where the entry $W_{ij}$ is equal to the weight of the edge joining verticies $i$ and $j$. Then, for a team of players $x = (x_1,x_2,x_3)$, where each $x_i$ is a unique number in the set $\{1,2,3,4,5\}$, the cost is defined by
 
 $ f(x) = \frac{1}{2}\sum_{i=1}^3 \sum_{j=1}^3 W_{x_i, x_j}.$
 
-The task is to find a team of three players $x$ which minimise the cost $f(x)$. As we do not have too many players, we can just list all possible combinations and find their cost. 
+The task is to find three players $x$ which minimise the cost $f(x)$. As we do not have too many vertices, we can just list all possible combinations and find their cost. 
 
 | Combination: $x$ | Cost: $f(x)$ |
 | -----------: | ----: |
-| 1 2 3     | 6 |
-| 1 2 4     | 3 |
-| 1 2 5     | 4 |
-| 1 3 4     | 6 |
-| 1 3 5     | 4 |
-| 1 4 5     | 5 |
-| 2 3 4     | 5 |
-| 2 3 5     | 7 |
-| 2 4 5     | 6 |
-| 3 4 5     | 6 |
+| (1,2,3)     | 6 |
+| (1,2,4)     | 3 |
+| (1,2,5)    | 4 |
+| (1,3,4)    | 6 |
+| (1,3,5)    | 4 |
+| (1,4,5)    | 5 |
+| (2,3,4)    | 5 |
+| (2,3,5)    | 7 |
+| (2,4,5)    | 6 |
+| (3,4,5)    | 6 |
 
-Using this exhaustive search we see that the three player combination with the lowest score is 1 2 4. However, as the number of players increases, listing every combination becomes infeasible, and more sophisticated methods are required to find the best team.
+Using this exhaustive search we see that the three player combination with the lowest score is (1,2,4). However, as the number of players increases, listing every combination becomes infeasible, and more sophisticated methods are required to find the best team.
 
 # The Simulated Annealing optimisation algorithm
 
@@ -55,7 +55,7 @@ In mathematical terms, we are dealing with a non-convex optimisation problem wit
 5. Repeat the process for as long as you have time for or until the global minimum is reached. 
 
 
-There are a number of things to unpack here. First of all, in this problem we will define two solutions as neighbouring if they differ by only one vertex. In the previous example, we would say 1 2 3 and 1 2 4 are neighbouring. This ensures our step sizes are not too large. 
+There are a number of things to unpack here. First of all, in this problem we will define two solutions as neighbouring if they differ by only one vertex. In the previous example, we would say (1,2,3) and (1,2,4) are neighbouring. This ensures our step sizes are not too large. 
 
 Many different acceptance functions can be used for simmulated annealing, but the one we will go for is 
 $ 
