@@ -1,8 +1,8 @@
 ---
 title: "Finding the Best Starting Eleven using Simulated Annealing"
+author: Peter Moskvichev
 date: 2022-11-23
 use_math: true
-mathjax: true
 ---
 
 # A complete graph for a complete squad
@@ -32,14 +32,33 @@ As we do not have too many players, we can just list all possible combinations a
 | 2 4 5     | 6 |
 | 3 4 5     | 6 |
 
-Using this exhaustive search we see that the three player combination with the lowest score is 1 2 4. 
+Using this exhaustive search we see that the three player combination with the lowest score is 1 2 4. However, as the number of players increases, listing every combination becomes infeasible, and more sophisticated methods are required to find the best team.
 
+# The Simulated Annealing optimisation algorithm
+
+In mathematical terms, we are dealing with a non-convex optimisation problem with a discrete search space. Luckily, there exists a search method called *simulated annealing* which suits our problem particularly well. 
+
+$ W = \left[ \begin{array}{ccccc} 0 & 1 & 2 & 1 & 1 \\
+1 & 0 & 3 & 1 & 2 \\
+2 & 3 & 0 & 1 & 2 \\
+1 & 1 & 1 & 0 & 3 \\
+1 & 2 & 2 & 3 & 0 \end{array} \right]
+$
+
+
+
+# Example
+
+
+Let's help out the Australian's coach Graham Arnold pick the best starting lineup for the Socceroos. Unfortunately, Mr. Arnold was unable to provide a list of player pair scores, so we will have to make do with my estimate. 
 
 ![Player pair scores](/assets/PlayerChem.png)
 
+If you wish to change the above weights, fell free to download the excel file using the link below. 
+
 <a href="assets/SocceroosGraph.xlsx" download>Download the Excel file</a>
 
-# The Simulated Annealing optimisation algorithm
+
 
 ```matlab
 this is code
