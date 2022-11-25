@@ -155,7 +155,7 @@ for k = 1:kmax
 end
 xBest
 ```
-Running the code (which takes a fraction of a second) gives the ouput
+Running the code (which takes a fraction of a second) gives the ouput for the global minimiser estimate
 ```matlab
 xBest =
 
