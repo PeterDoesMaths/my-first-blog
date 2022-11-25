@@ -11,17 +11,17 @@ At the 2022 FIFA World Cup in Qatar, each team has a squad of 26 players, but on
 
 To assist us, the coach provides a crucial piece of information: a 'score' of how well each pair of footballers play together. For example, if two players go well in the same team, the score between them would be low. On the other hand, if the two make a horrid combination, like what could happen if they play in the same position, then their score would be very high. Typically, good players have low scores with all their teammates, while fringe players have high scores. 
 
-We begin with a simpler scenario to better understand the problem. Consider a squad with only five players and suppose you need to select a team of three. Each player can be thought of as a vertex on a graph. The verticies are connected to each other by weighted edges, where the weighting corresponds to the score between players. Below is what such a graph could look like.
+We begin with a simpler scenario to better understand the problem. Consider a squad with only five players and suppose you need to select a team of three. Each player can be thought of as a vertex on a graph. The vertices are connected to each other by weighted edges, where the weighting corresponds to the score between players. Below is what such a graph could look like.
 
 <img src="assets/5PlayerGraph.png" width="400">
 
-Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three verticies and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 3, 4 and 5, then the cost of the team would be 1 + 2 + 3 = 6. 
+Since every vertex is connected to all others by a weighted edge, we have a *complete weighted graph*. If we choose three vertices and keep the edges that connect them, we get a weighted subgraph, and the *cost* is the sum of the weights. For example, if we select players 3, 4 and 5, then the cost of the team would be 1 + 2 + 3 = 6. 
 
 More formally, we can represent the weight between players with the symmetric matrix
 
 <img src="assets/WeightMatrix.png" width="300">
 
-where the entry $W_{ij}$ is equal to the weight of the edge joining verticies $i$ and $j$. Then, for a team of players $x = (x_1,x_2,x_3)$, where each $x_i$ is a unique number in the set $\{1,2,3,4,5\}$, the cost is defined by
+where the entry $W_{ij}$ is equal to the weight of the edge joining vertices $i$ and $j$. Then, for a team of players $x = (x_1,x_2,x_3)$, where each $x_i$ is a unique number in the set $\{1,2,3,4,5\}$, the cost is defined by
 
 $ f(x) = \frac{1}{2}\sum_{i=1}^3 \sum_{j=1}^3 W_{x_i, x_j}.$
 
@@ -164,7 +164,7 @@ xBest =
 
 Although the order is jumbled up, the simulated annealing search has given exactly the same eleven players as the exhaustive search. And it only needed to check 1000 of the possible combinations! 
 
-It is important to note that since the simulated annealing search uses randomness in the iterations, it is not guaranteed to converge to the global minimiser. However, with enough iterations it will always give a good estimate of the minimiser of $f(x)$. As we increase the number of verticies in the graph, an exhaustive search eventually becomes too difficult to complete. Simulated annealing will always remain an efficient option for finding the minimiser. 
+It is important to note that since the simulated annealing search uses randomness in the iterations, it is not guaranteed to converge to the global minimiser. However, with enough iterations it will always give a good estimate of the minimiser of $f(x)$. As we increase the number of vertices in the graph, an exhaustive search eventually becomes too difficult to complete. Simulated annealing will always remain an efficient option for finding the minimiser. 
 
 I will finish this blog by summarising the eleven players which (according to maths and my estimations) will give Australia the best chance of winning the World Cup. Good luck lads!
 
