@@ -9,7 +9,7 @@ use_math: true
 
 At the 2022 FIFA World Cup in Qatar, each team has a squad of 26 players, but only 11 can be selected in the starting lineup. This means there are $\binom{26}{11} = 7726160$ different combinations for the manager to choose from! National team managers are usually very busy people and don't have the time to check each possibility, prompting them to seek the help of a mathematician. 
 
-To assist us, the coach provides a crucial piece of information: a 'score' of how well each pair of footballers play together. For example, if two players go well in the same team, the score between them would be low. On the other hand, if the two make a horrid combination, like what could happen if they play in the same position, then their score would be very high. Typically, good players would have low scores with all their teammates, while fringe players have high scores. 
+To assist us, the coach provides a crucial piece of information: a 'score' of how well each pair of footballers play together. For example, if two players go well in the same team, the score between them would be low. On the other hand, if the two make a horrid combination, like what could happen if they play in the same position, then their score would be very high. Typically, good players have low scores with all their teammates, while fringe players have high scores. 
 
 We begin with a simpler scenario to better understand the problem. Consider a squad with only five players and suppose you need to select a team of three. Each player can be thought of as a vertex on a graph. The verticies are connected to each other by weighted edges, where the weighting corresponds to the score between players. Below is what such a graph could look like.
 
@@ -47,7 +47,7 @@ Using this exhaustive search we see that the three player combination with the l
 In mathematical terms, we are dealing with a non-convex optimisation problem with a discrete search space. Luckily, there exists a search method called *simulated annealing* which suits our problem particularly well. Essentially, we iterate in a special way over the search space in an attempt to find the global minimiser. Here's a breif outline of how it works
 
 1. Begin with some guess of the solution
-2. Choose a 'neighbouring' solution and determine the change in cost $\Delta f$
+2. Randomly choose a 'neighbouring' solution and determine the change in cost $\Delta f$
 3. If $\Delta f \leq 0$, we keep the new solution
 4. If $\Delta f > 0$, we may or may not keep the solution, based on the probability of acceptance.
     - The probability of acceptance decreases as $\Delta f$ increases, and
@@ -61,25 +61,27 @@ The probability of acceptance is based on an acceptance function. Many different
 
 $ P(accept \vert \Delta f) = \exp(\frac{-\Delta f}{T}).$
 
-In practice, whether or not a step is accepted is determined by generating a random number between 0 and 1, and comparing it with $P(accept \vert \Delta f)$. If $P(accept \vert \Delta f)$ is greater than the random number, we accept the new $x$, otherwise, we keep the previous $x$. 
+In practice, whether or not a step is accepted is determined by generating a random number $r$ between 0 and 1, and comparing it with $P(accept \vert \Delta f)$. If $P(accept \vert \Delta f) \geq r$, we accept the new $x$, otherwise, we keep the previous $x$. 
 
-Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, which makes $P(accept \vert \Delta f)$ high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. Just as with the acceptance function, there are many options for decreasing the temperature. For example, $T_k = T_0(1 - \frac{k}{k_{max}})$ where $T_k$ is the temperature at the $k$-th step, $T_0$ is the initial temperature, and $k_{max}$ is the maximum number of steps that will be taken in the search. 
+Finally, there is the idea of the temperature $T$. At the beginning of the search, the temperature is high, which makes $P(accept \vert \Delta f)$ high, meaning we are more likely to accept a new solution even if the cost increases. As the search continues, the temperature decreases, making it more likely to accept a solution only if it decreases the cost. The reason for the temperature is that it prevents us from converging to a local minimum. Just as with the acceptance function, there are many options for decreasing the temperature. For example, $T_k = T_0(1 - \frac{k}{k_{max}})$ where $T_k$ is the temperature at the $k$-th step, $T_0$ is the initial temperature, and $k_{max}$ is the maximum number of steps that will be taken in the search. In this case, the search ends when $T=0$, and the $x$ which we finish on is the estimate for the global minimiser. 
 
-Here is how a simulated annealing search may look for our previous example, starting with the initial guess $x = (2,3,5)$. 
+Here is how a simulated annealing search may look for our previous five player example, starting with the initial guess $x = (2,3,5)$. 
 
-| $x$ | $\Delta f$ | Notes |
-| -----------: | ----: | --- | 
-| (2,3,5)    |  | We start with an initial guess, and then randomly choose a neighbour|
-| (1,3,5)    | -3 | The cost decreases so we accept the new solution |
-| (1,4,5)    | 1  | The cost has increased, but we are early in the search and the temperature is high so we may still accept the new solution |
-| (1,3,5) | 1 | The cost again increases and this time we might reject the new solution and stick with (1,4,5)|
-|(1,2,4) | - 2 | The cost decreases and we have reached the global minimum |
+| $x$ | $\Delta f$ | $T$| Notes |
+| ---: | -------: | ---:| ----- | 
+| (2,3,5)    |  | 4 | We start with an initial guess, and then randomly choose a neighbour.|
+| (1,3,5)    | -3 | 3 | The cost decreases so we accept the new solution. |
+| (1,4,5)    | 1  | 2| The cost has increased, so we check the probability of acceptance. $P(accept \vert \Delta f) = \exp(\frac{-\Delta f}{T}) = \exp(-0.5) = 0.607$. Suppose we randomly generate $r=0.5$. Since $P(accept \vert \Delta f) \geq r$, we accept the new solution. |
+| (1,3,5) | 1 | 1 | The cost again increases so we check the probability of acceptance. This time $P(accept \vert \Delta f) = \exp(\frac{-\Delta f}{T}) = \exp(-1) = 0.368$. Suppose we now randomly generate $r = 0.4$. Then $P(accept \vert \Delta f) < r$, so we stick with (1,4,5) and choose another neighbour.|
+|(1,2,4) | - 2 | 0| The cost decreases so we keep the solution. As the temperature has reached zero we stop our search.|
+
+At the end of the search, our estimate for the global minimiser is $x = (1,2,4)$. This is the same as the minimiser found with the exhaustive search but we needed to check three combinations less. One - nill to simulated annealing!
 
 
 
 # Simulated Annealing for Arnold's Socceroos
 
-Now that we understand how simulated annealing works, let's help out Australian's coach Graham Arnold pick the best starting lineup for the Socceroos. Unfortunately, Mr. Arnold was unable to provide a list of player pair scores, so we will have to make do with my estimate. 
+Now that we understand how simulated annealing works, let's help out Australia's coach Graham Arnold pick the best starting lineup for the Socceroos. Unfortunately, Mr. Arnold was unable to provide a list of player pair scores, so we will have to make do with my estimate. 
 
 ![Player pair scores](/assets/PlayerChem.png)
 
@@ -87,11 +89,11 @@ Now that we understand how simulated annealing works, let's help out Australian'
 
 <a href="assets/SocceroosGraph.xlsx" download>Download the Excel file</a>
 
-In the spreadsheet, all 26 players of the Australian squad are listed along with their jersey number and position. The table of values represents the matrix of weights $W$ which we defined earlier. The lower the score between players, the more green the cell is. 
+In the spreadsheet, all 26 players of the Australian squad are listed along with their jersey number and position. The table of values represents the matrix of weights $W$ which we defined earlier. The lower the score between players, the more green the cell is. We won't draw the graph that the matrix represents, but the idea is the same as with our five player example. 
 
 A few things may stand out. Clearly, it would not be a good idea to have two goalkeepers in the starting lineup, so the score between them is very high at 100. In all other cases, the score between players is an integer between 1 and 10. 
 
-The optimisation problem is to choose an $x$, where the elements of $x$ are eleven unique integers between 1 and 26, that minimises the cost function
+The optimisation problem is to choose an $x$ (where the elements of $x$ are eleven unique integers between 1 and 26) that minimises the cost function
 
 $ f(x) = \frac{1}{2}\sum_{i=1}^{11} \sum_{j=1}^{11} W_{x_i, x_j}.$
 
@@ -118,7 +120,7 @@ end
 % Lowest cost XI
 bestEleven = combos(i,:)
 ```
-After checking the more than 7 million options, we get the output for minimiser $x$
+After checking the more than 7 million options, we get the output for the minimiser $x$.
 ```matlab
 bestEleven =
 
@@ -135,7 +137,6 @@ kmax = 1000;
 for k = 1:kmax
     % Set Temperature
     T = T0*(1-k/kmax);
-    %T = 0.8*T; % Alternative temperature decrease
     % Choose neighbour
     subs = setdiff(players,x);
     subOut = randi(length(x),1);
@@ -163,9 +164,9 @@ xBest =
 
 Although the order is jumbled up, the simulated annealing search has given exactly the same eleven players as the exhaustive search. And it only needed to check 1000 of the possible combinations! 
 
-It is important to note that since the simulated annealing search uses randomness in the iterations, it is not guaranteed to converge to the global minimum. However, with enough iterations it will always give a good estimate of the minimiser of $f(x)$. 
+It is important to note that since the simulated annealing search uses randomness in the iterations, it is not guaranteed to converge to the global minimiser. However, with enough iterations it will always give a good estimate of the minimiser of $f(x)$. As we increase the number of verticies in the graph, an exhaustive search eventually becomes too difficult to complete. Simulated annealing will always remain an efficient option for finding the minimiser. 
 
-I will finish this blog by summarising the eleven players which (according the maths and my estimations) will give Australia the best chance of winning the World Cup. Good luck lads!
+I will finish this blog by summarising the eleven players which (according to maths and my estimations) will give Australia the best chance of winning the World Cup. Good luck lads!
 
 | Number | Position | Name |
 | -----------: | ----: | --- |
