@@ -49,7 +49,7 @@ In mathematical terms, we are dealing with a non-convex optimisation problem wit
 1. Begin with some guess of the solution
 2. Randomly choose a 'neighbouring' solution and determine the change in cost $\Delta f$
 3. If $\Delta f \leq 0$, we keep the new solution
-4. If $\Delta f > 0$, we may or may not keep the solution, based on the probability of acceptance.
+4. If $\Delta f > 0$, we may or may not keep the solution, based on the probability of acceptance $P(accept \vert \Delta f)$.
     - The probability of acceptance decreases as $\Delta f$ increases, and
     - The probability of acceptance decreases as the 'temperature' $T$ decreases
 5. Decrease the temperature and repeat the process for as long as you have time for or until the global minimum is reached. 
@@ -75,7 +75,7 @@ Here is how a simulated annealing search may look for our previous five player e
 | (1,3,5) | 1 | 1 | The cost again increases so we check the probability of acceptance. This time $P(accept \vert \Delta f) = \exp(\frac{-\Delta f}{T}) = \exp(-1) = 0.368$. Suppose we now randomly generate $r = 0.4$. Then $P(accept \vert \Delta f) < r$, so we stick with (1,4,5) and choose another neighbour.|
 |(1,2,4) | - 2 | 0| The cost decreases so we keep the solution. As the temperature has reached zero we stop our search.|
 
-At the end of the search, our estimate for the global minimiser is $x = (1,2,4)$. This is the same as the minimiser found with the exhaustive search but we needed to check three combinations less. One - nill to simulated annealing!
+At the end of the search, our estimate for the global minimiser is $x = (1,2,4)$. This is the same as the minimiser found with the exhaustive search but we needed to check three combinations less. One - nil to simulated annealing!
 
 
 
@@ -155,7 +155,7 @@ for k = 1:kmax
 end
 xBest
 ```
-Running the code (which takes a fraction of a second) gives the ouput for the global minimiser estimate
+Running the code (which takes a fraction of a second) gives the ouput for the global minimiser estimate.
 ```matlab
 xBest =
 
