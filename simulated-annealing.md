@@ -85,7 +85,7 @@ Now that we understand how simulated annealing works, let's help out Australia's
 
 ![Player pair scores](/assets/PlayerChem.png)
 
-**Note: These are complete guesses on my end and I by no means claim to be a football expert! If you wish to change the above weights, fell free to download the Excel file using the link.**
+**Note: These are complete guesses on my end and I by no means claim to be a football expert! If you wish to change the above weights, feel free to download the Excel file using the link.**
 
 <a href="assets/SocceroosGraph.xlsx" download>Download the Excel file</a>
 
